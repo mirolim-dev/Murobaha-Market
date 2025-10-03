@@ -141,10 +141,9 @@ Follow these instructions to get a copy of the project up and running on your lo
 ```
 murobaha_market/
 ├── core/               # Main project settings, urls.py
-├── apps/
-│   ├── users/          # User models, serializers, views
-│   ├── products/       # Product, Category models, etc.
-│   └── orders/         # OrderRequest, PaymentSchedule logic
+├── account/          # User models, serializers, views
+├── products/       # Product, Category models, etc.
+└── orders/         # OrderRequest, PaymentSchedule logic
 ├── manage.py
 ├── requirements.txt
 └── README.md
