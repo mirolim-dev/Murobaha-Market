@@ -1,7 +1,7 @@
 # orders/serializers.py
 
 from rest_framework import serializers
-from products.serializers import ProductSerializer # To display product details
+from product.serializers import ProductSerializer # To display product details
 from .models import OrderRequest, OrderRequestItem, PaymentSchedule
 
 # --- Serializers for Reading/Displaying Data ---
