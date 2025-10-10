@@ -13,7 +13,7 @@ class OrderRequestItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderRequestItem
-        fields = ['id', 'product', 'quantity', 'price_at_time_of_order']
+        fields = ['id', 'product', 'quantity', 'price_at_time']
 
 
 class PaymentScheduleSerializer(serializers.ModelSerializer):
