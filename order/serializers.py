@@ -23,6 +23,25 @@ class PaymentScheduleSerializer(serializers.ModelSerializer):
         fields = ['id', 'due_date', 'amount', 'status', 'payment_date']
 
 
+# class CreatePaymentScheduleSerializer(serializers.ModelSerializer):
+#     """Serializer for creating payment schedules."""
+#     class Meta:
+#         model = PaymentSchedule
+#         fields = ['due_date', 'amount', 'status', 'payment_date']
+
+#     def validate_amount(self, value):
+#         if value <= 0:
+#             raise serializers.ValidationError("Payment amount must be positive.")
+#         return value
+    
+#     def validate_due_date(self, value):
+#         from datetime import date, timedelta
+#         min_due_date = date.today() + timedelta(days=6*30)  # Approximate 6 months as 180 days
+#         if value < min_due_date:
+#             raise serializers.ValidationError("Due date should be at least 6 months from today.")
+#         return value
+
+
 class OrderRequestListSerializer(serializers.ModelSerializer):
     """
     A lightweight serializer for listing all of a user's order requests.

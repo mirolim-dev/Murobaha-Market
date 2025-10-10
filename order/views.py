@@ -10,7 +10,7 @@ from .serializers import (
     OrderRequestDetailSerializer,
     PaymentScheduleSerializer
 )
-# Assuming you have a Cart model on the user or in a separate app
+
 # from cart.models import Cart, CartItem 
 
 class OrderRequestListCreateView(generics.ListCreateAPIView):
@@ -77,3 +77,16 @@ class OrderRequestDetailView(generics.RetrieveAPIView):
     def get_queryset(self):
         # Ensure users can only view their own order requests
         return OrderRequest.objects.filter(user=self.request.user)
+    
+
+class PaymentScheduleDetailView(generics.RetrieveAPIView):
+    """
+    - GET: Retrieves the details of a specific payment schedule.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = PaymentScheduleSerializer
+    
+    def get_queryset(self, order_request_id:int):
+        # Ensure users can only view payment schedules for their own orders
+        return PaymentSchedule.objects.get(order_request__id=order_request_id)
+    
