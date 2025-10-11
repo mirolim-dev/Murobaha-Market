@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    image_url = models.URLField(max_length=500, null=True)
+    image = models.URLField(max_length=500, null=True)
     is_trending = models.BooleanField(default=False)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
-    image_url = models.URLField(max_length=500, null=True)
+    image = models.URLField(max_length=500, null=True)
 
     def __str__(self):
         return f"Image for {self.product.name}"

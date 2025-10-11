@@ -41,10 +41,8 @@ class ProductSerializer(serializers.ModelSerializer):
         # Get the first image associated with the product, if it exists
         first_image = obj.images.first()
         if first_image:
-            # Important: Get the full URL by using the request context
-            request = self.context.get('request')
-            return request.build_absolute_uri(first_image.image.url) if request else first_image.image.url
-        return None # Return null if no images are associated
+            return first_image.image
+        return None  # Return null if no images are associated
 
 
 class ProductDetailSerializer(ProductSerializer):
