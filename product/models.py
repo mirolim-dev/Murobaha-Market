@@ -23,6 +23,11 @@ class Product(models.Model):
     def get_product_images(self):
         ''' Returns a queryset of all images related to this product. '''
         return self.images.values('image')  
+    
+    def get_main_image(self):
+        ''' Returns the first image of the product or None if no images exist. '''
+        first_image = self.images.first()
+        return first_image.image if first_image else None
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
