@@ -50,11 +50,15 @@ class ProductDetailSerializer(ProductSerializer):
     Serializer for the Product model, used for the DETAIL view.
     It inherits from ProductSerializer and adds more fields, including all images.
     """
-    # Nest the ProductImageSerializer to include all images in the detail view
-    images = ProductImageSerializer(many=True, read_only=True)
+    # Use get_product_images to display images field
+    images = serializers.SerializerMethodField()
 
     class Meta(ProductSerializer.Meta):
         # Inherit fields from the parent and add new ones
         fields = ProductSerializer.Meta.fields + [
             'description', 'images', 'color'
         ]
+
+    def get_images(self, obj):
+        # Returns a list of image dicts using get_product_images
+        return obj.get_product_images()

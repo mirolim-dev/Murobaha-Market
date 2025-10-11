@@ -21,8 +21,8 @@ class Product(models.Model):
         return self.name
     
     def get_product_images(self):
-        ''' Returns a queryset of all images related to this product. '''
-        return self.images.values('image')  
+        ''' Returns a list of all image URLs related to this product. '''
+        return list(self.images.values_list('image', flat=True))
     
     def get_main_image(self):
         ''' Returns the first image of the product or None if no images exist. '''
