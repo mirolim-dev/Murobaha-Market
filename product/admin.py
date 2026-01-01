@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, ProductImage
+from .models import Category, Product, ProductImage, Review
 from django.utils.html import format_html
 
 # Register your models here.
@@ -29,3 +29,9 @@ class ProductAdmin(admin.ModelAdmin):
             )
         return "-"
     main_image_display.short_description = 'Main Image'
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('product', 'user', 'rating', 'created_at')
+    list_filter = ('rating', 'created_at')
+    search_fields = ('product__name', 'user__username', 'comment')

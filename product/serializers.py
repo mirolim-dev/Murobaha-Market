@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Product, ProductImage
+from .models import Category, Product, ProductImage, Review
 
 # --- Nested Serializer for Images ---
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -9,6 +9,17 @@ class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
         fields = ['id', 'image']
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Review model.
+    """
+    user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Review
+        fields = ['id', 'user', 'rating', 'comment', 'created_at']
 
 
 # --- Main Serializers ---
@@ -62,3 +73,12 @@ class ProductDetailSerializer(ProductSerializer):
     def get_images(self, obj):
         # Returns a list of image dicts using get_product_images
         return obj.get_product_images()
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        reviews = Review.objects.filter(product=instance)
+        representation['reviews'] = ReviewSerializer(reviews, many=True).data
+        # Calculate average rating
+        total_rating = sum([review.rating for review in reviews])
+        representation['average_rating'] = total_rating / len(reviews) if reviews else 0
+        return representation

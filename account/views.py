@@ -17,4 +17,4 @@ class ManageUserView(generics.RetrieveUpdateAPIView):
         Retrieve and return the authenticated user.
         We override this method to ensure the user gets their OWN profile, not someone else's.
         """
-        return self.request.user
+        return self.request.user.profile

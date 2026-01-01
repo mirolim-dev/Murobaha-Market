@@ -3,8 +3,8 @@ from rest_framework import generics, permissions
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Category, Product
-from .serializers import CategorySerializer, ProductSerializer, ProductDetailSerializer
+from .models import Category, Product, Review
+from .serializers import CategorySerializer, ProductSerializer, ProductDetailSerializer, ReviewSerializer
 
 # --- Category Views ---
 
@@ -52,3 +52,16 @@ class ProductDetailView(generics.RetrieveAPIView):
     serializer_class = ProductDetailSerializer
     permission_classes = [permissions.AllowAny]
     # The 'lookup_field' is 'pk' by default, which is what we want.
+
+class ReviewCreateView(generics.CreateAPIView):
+    """
+    API view to create a review for a specific product.
+    Only authenticated users can create reviews.
+    """
+    serializer_class = ReviewSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        product_id = self.kwargs.get('pk')
+        product = Product.objects.get(pk=product_id)
+        serializer.save(user=self.request.user, product=product)
