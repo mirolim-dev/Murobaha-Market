@@ -4,6 +4,7 @@ Django==5.2.7
 django-filter==25.1
 djangorestframework==3.16.1
 drf-yasg==1.21.11
+djangorestframework-simplejwt==5.3.1
 inflection==0.5.1
 packaging==25.0
 pillow==11.3.0

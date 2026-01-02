@@ -1,0 +1,8 @@
+api/v1/account/profile/
+api/v1/product/categories/
+api/v1/product/
+api/v1/product/<int:pk>/
+api/v1/product/<int:pk>/reviews/
+api/v1/order/
+api/v1/order/<int:pk>/
+api/v1/order/payment-schedule/<int:pk>/
